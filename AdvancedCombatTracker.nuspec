@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+    <metadata>
+        <id>AdvancedCombatTracker</id>
+        <version>3.3.3.258</version>
+        <authors>bnVi</authors>
+        <owners>bnVi</owners>
+        <projectUrl>http://github.com/bnVi/AdvancedCombatTracker</projectUrl>
+        <description>Advanced Combat Tracker</description>
+    </metadata>
+
+    <files>
+        <file src="Advanced Combat Tracker.exe" target="" />
+    </files>
+</package>
