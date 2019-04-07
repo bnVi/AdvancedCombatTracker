@@ -13,5 +13,6 @@
     </metadata>
     <files>
         <file src="Advanced Combat Tracker.exe" target="lib/net45" />
+        <file src="Advanced Combat Tracker.XML" target="lib/net45" />
     </files>
 </package>
