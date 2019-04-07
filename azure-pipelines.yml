@@ -1,0 +1,19 @@
+pool:
+  vmImage: 'VS2017-Win2016'
+
+steps:
+- task: NuGetToolInstaller@0
+
+- task: NuGetCommand@2
+  inputs:
+    command: pack
+    packagesToPack: '**/*.nuspec'
+    packDestination: $(Build.ArtifactStagingDirectory)
+
+- task: NuGetCommand@2
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: NuGet.org
+    packagesToPush: '**/*.nuspec'
+    packDestination: $(Build.ArtifactStagingDirectory)\**\*.nupkg
