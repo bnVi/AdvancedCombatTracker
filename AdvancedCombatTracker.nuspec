@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
     <metadata>
         <id>AdvancedCombatTracker</id>
-        <version>3.3.3.258</version>
+        <version>0.0.0</version>
         <authors>bnVi</authors>
         <owners>bnVi</owners>
         <projectUrl>https://advancedcombattracker.com/</projectUrl>

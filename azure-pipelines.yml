@@ -1,6 +1,7 @@
 pool:
   vmImage: 'VS2017-Win2016'
 
+name: 0.0.$(Rev:r)
 steps:
 - task: NuGetToolInstaller@0
   inputs:
@@ -12,6 +13,7 @@ steps:
     command: pack
     packagesToPack: '**/*.nuspec'
     packDestination: $(Build.ArtifactStagingDirectory)
+    versioningScheme: byBuildNumber
 
 - task: NuGetCommand@2
   displayName: "NuGet push"
