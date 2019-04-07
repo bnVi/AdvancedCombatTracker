@@ -5,8 +5,11 @@
         <version>3.3.3.258</version>
         <authors>bnVi</authors>
         <owners>bnVi</owners>
-        <projectUrl>http://github.com/bnVi/AdvancedCombatTracker</projectUrl>
+        <projectUrl>https://advancedcombattracker.com/</projectUrl>
+        <iconUrl>https://advancedcombattracker.com/act_data/act_banner1.png</iconUrl>
+        <repository type="git" url="https://github.com/bnVi/AdvancedCombatTracker"></repository>
         <description>Advanced Combat Tracker</description>
+        <license type="expression">Apache-2.0</license>
     </metadata>
 
     <files>
