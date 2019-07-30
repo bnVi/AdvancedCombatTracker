@@ -1,7 +1,6 @@
 pool:
   vmImage: 'VS2017-Win2016'
 
-name: 0.0.$(Rev:r)
 steps:
 - task: NuGetToolInstaller@0
   inputs:
@@ -13,11 +12,12 @@ steps:
     command: pack
     packagesToPack: '**/*.nuspec'
     packDestination: $(Build.ArtifactStagingDirectory)
-    versioningScheme: byBuildNumber
+    versioningScheme: byEnvVar
+    versionEnvVar: Build.SourceBranchName
 
 - task: NuGetCommand@2
   displayName: "NuGet push"
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: contains(variables['Build.SourceBranch'], 'refs/tags/')
   inputs:
     command: push
     nuGetFeedType: external
