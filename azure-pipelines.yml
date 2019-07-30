@@ -1,6 +1,12 @@
 pool:
   vmImage: 'VS2017-Win2016'
 
+trigger:
+  branches:
+    include:
+      - refs/heads/*
+      - refs/tags/*
+
 steps:
 - task: NuGetToolInstaller@0
   inputs:
