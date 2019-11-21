@@ -23,15 +23,6 @@ steps:
 
 - task: NuGetCommand@2
   displayName: "NuGet pack"
-  inputs:
-    command: pack
-    packagesToPack: '**/*.nuspec'
-    packDestination: $(Build.ArtifactStagingDirectory)
-    versioningScheme: byPrereleaseNumber
-    buildProperties: "ActVersion=$(ActVersion)"
-
-- task: NuGetCommand@2
-  displayName: "NuGet pack"
   condition: contains(variables['Build.SourceBranch'], 'refs/tags/')
   inputs:
     command: pack
