@@ -7,10 +7,19 @@ trigger:
       - refs/heads/*
       - refs/tags/*
 
+variables:
+  ActVersion: 3.4.0.260
+
 steps:
 - task: NuGetToolInstaller@0
   inputs:
     versionSpec: '4.9.4' 
+
+- task: PowerShell@2
+  displayName: "Download Advanced Combat Tracker executable"
+  inputs:
+    filePath: "scripts/Download.ps1"
+    arguments: -Version $(ActVersion)
 
 - task: NuGetCommand@2
   displayName: "NuGet pack"
@@ -20,7 +29,8 @@ steps:
     packDestination: $(Build.ArtifactStagingDirectory)
     versioningScheme: byEnvVar
     versionEnvVar: Build.SourceBranchName
-
+    buildProperties: "ActVersion=$(ActVersion)"
+    
 - task: NuGetCommand@2
   displayName: "NuGet push"
   condition: contains(variables['Build.SourceBranch'], 'refs/tags/')
