@@ -8,7 +8,7 @@ trigger:
       - refs/tags/*
 
 variables:
-  ActVersion: 3.4.0.260
+  ActVersion: 3.4.1.261
 
 steps:
 - task: NuGetToolInstaller@0
