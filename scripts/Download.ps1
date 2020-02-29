@@ -6,13 +6,24 @@ Param(
     [string] $Versions = ""
 )
 
+if ($Versions -eq $null -or $Versions -eq "") {
+    Write-Output "No versions were specified."
+    return
+}
+
 $versionsToDownload = $Versions.Split()
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $wc = New-Object System.Net.WebClient
 
 Write-Output "Fetching latest XML doc '$XmlDocUrl'"
-$wc.DownloadFile($XmlDocUrl, $XmlDocFilename)
+try {
+    $wc.DownloadFile($XmlDocUrl, $XmlDocFilename)
+}
+catch {
+    Write-Error $_.Exception.ToString()
+    exit 1
+}
 
 Write-Output "Creating versions directory"
 $versionDir = "$(Get-Location)\versions" 
@@ -26,7 +37,14 @@ foreach ($version in $versionsToDownload) {
     $downloadedZipFile = "$versionDir\$version.zip"
 
     Write-Output "`nDownloading '$url'"
-    $wc.DownloadFile($url, $downloadedZipFile)
+
+    try {
+        $wc.DownloadFile($url, $downloadedZipFile)
+    }
+    catch {
+        Write-Error $_.Exception.ToString()
+        exit 1
+    }
 
     $extractedDir = "$versionDir\$version"
     Write-Output "Extracting to '$extractedDir'"
