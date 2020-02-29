@@ -7,6 +7,12 @@ trigger:
       - refs/heads/*
       - refs/tags/*
 
+schedules:
+  - cron: "0 0 * * *"
+    branches:
+      include:
+      - master
+
 steps:
 - task: NuGetToolInstaller@0
   inputs:
