@@ -39,7 +39,7 @@ steps:
 
 - task: NuGetCommand@2
   displayName: "NuGet push"
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['versionsToPublish'], ''))
   inputs:
     command: push
     nuGetFeedType: external
