@@ -25,7 +25,7 @@ foreach ($version in $versionsToDownload) {
     $url = "$ArchiveUrl/$version/$ZipFile"
     $downloadedZipFile = "$versionDir\$version.zip"
 
-    Write-Output "Downloading '$url'"
+    Write-Output "`nDownloading '$url'"
     $wc.DownloadFile($url, $downloadedZipFile)
 
     $extractedDir = "$versionDir\$version"
