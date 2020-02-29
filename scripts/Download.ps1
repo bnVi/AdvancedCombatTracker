@@ -1,22 +1,43 @@
 Param(
-    [string] $BaseUrl = "https://github.com/EQAditu/AdvancedCombatTracker/releases/download",
-    [string] $Version = "3.4.0.260",
-    [string] $File = "ACTv3.zip"
+    [string] $XmlDocUrl = "https://advancedcombattracker.com/apidoc/Advanced%20Combat%20Tracker.XML",
+    [string] $XmlDocFilename = "Advanced Combat Tracker.XML",
+    [string] $ArchiveUrl = "https://github.com/EQAditu/AdvancedCombatTracker/releases/download",
+    [string] $ZipFile = "ACTv3.zip",
+    [string] $Versions = ""
 )
 
-$uri = "$BaseUrl/$Version/$File"
-$actExecutable = "Advanced Combat Tracker.exe"
+$versionsToDownload = $Versions.Split()
 
-Write-Output "Downloading $uri"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $wc = New-Object System.Net.WebClient
-$wc.DownloadFile($uri, "act.zip")
-Add-Type -AssemblyName System.IO.Compression.FileSystem
 
-Write-Output "Extracting executable"
-[System.IO.Compression.ZipFile]::ExtractToDirectory("act.zip", "act")
+Write-Output "Fetching latest XML doc '$XmlDocUrl'"
+$wc.DownloadFile($XmlDocUrl, $XmlDocFilename)
 
-Write-Output "Copying executable to path"
-Copy-Item -Path "act\\$actExecutable" -Destination $actExecutable
+Write-Output "Creating versions directory"
+$versionDir = "$(Get-Location)\versions" 
+Remove-Item $versionDir -Recurse -ErrorAction Ignore
+New-Item -ItemType Directory -Path $versionDir | Out-Null
+
+Write-Output "Fetching $($versionsToDownload.Count) executable versions: $versionsToDownload"
+
+foreach ($version in $versionsToDownload) {
+    $url = "$ArchiveUrl/$version/$ZipFile"
+    $downloadedZipFile = "$versionDir\$version.zip"
+
+    Write-Output "Downloading '$url'"
+    $wc.DownloadFile($url, $downloadedZipFile)
+
+    $extractedDir = "$versionDir\$version"
+    Write-Output "Extracting to '$extractedDir'"
+
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    [System.IO.Compression.ZipFile]::ExtractToDirectory($downloadedZipFile, $extractedDir)
+
+    Write-Output "Copying XML doc"
+    Copy-Item -Path $XmlDocFilename -Destination $extractedDir
+
+    Write-Output "Finished fetching version '$version'"
+}
 
 Write-Output "Done"

@@ -11,6 +11,9 @@
         <description>Advanced Combat Tracker assembly and XML docs used for building plugins.</description>
         <releaseNotes>Contains version $ActVersion$ of the Advanced Combat Tracker executable.</releaseNotes>
         <license type="expression">Apache-2.0</license>
+        <dependencies>
+            <group targetFramework=".NETFramework4.5" />
+        </dependencies>
     </metadata>
     <files>
         <file src="Advanced Combat Tracker.exe" target="lib/net45" />
