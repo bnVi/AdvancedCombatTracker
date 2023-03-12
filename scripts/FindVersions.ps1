@@ -1,6 +1,6 @@
 Param(
     [string] $ReleasesApiUrl = "https://api.github.com/repos/EQAditu/AdvancedCombatTracker/releases",
-    [string] $NugetApiUrl = "https://api.nuget.org/v3-flatcontainer/AdvancedCombatTracker/index.json"
+    [string] $NugetApiUrl = "https://api.nuget.org/v3-flatcontainer/advancedcombattracker/index.json"
 )
 
 Write-Output "Looking up releases at '$ReleasesApiUrl'"
